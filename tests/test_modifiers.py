@@ -16,6 +16,7 @@ sys.path.append(
 
 from tracery import modifiers
 
+
 class TestModifiers(unittest.TestCase):
 
     def test_replace(self):
@@ -127,16 +128,6 @@ class TestModifiers(unittest.TestCase):
 
         # Assert
         self.assertEqual(output, "monkeys")
-
-    def test_s_ends_in_y_but_not_vowel_y(self):
-        # Arrange
-        input = "telly"
-
-        # Act
-        output = modifiers.s(input)
-
-        # Assert
-        self.assertEqual(output, "tellies")
 
     def test_s_ends_in_y_but_not_vowel_y(self):
         # Arrange
