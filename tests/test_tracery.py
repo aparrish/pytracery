@@ -3,7 +3,7 @@
 """
 Unit tests for pytracery
 """
-from __future__ import print_function
+from __future__ import print_function, unicode_literals
 try:
     import unittest2 as unittest
 except ImportError:
@@ -210,7 +210,7 @@ class TestWebSpecifics(TestPytracery):
 
     def test_emoji(self):
         # Arrange
-        src = u"💻🐋🌙🏄🍻"
+        src = "💻🐋🌙🏄🍻"
 
         # Act
         ret = self.grammar.flatten(src)
@@ -218,7 +218,7 @@ class TestWebSpecifics(TestPytracery):
         # Assert
         self.assertEqual(
             ret,
-            u"\U0001f4bb\U0001f40b\U0001f319\U0001f3c4\U0001f37b")
+            "\U0001f4bb\U0001f40b\U0001f319\U0001f3c4\U0001f37b")
         self.assertEqual(self.grammar.errors, [])
 
     def test_unicode(self):
