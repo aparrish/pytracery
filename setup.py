@@ -24,7 +24,7 @@ setup(
     packages=[
         'tracery',
     ],
-    install_requires=[],
+    install_requires=['inflect'],
     license="Apache License 2.0",
     zip_safe=True,
     keywords='tracery',
