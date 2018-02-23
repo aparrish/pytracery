@@ -60,6 +60,51 @@ you may get output that doesn't exactly conform to what you would get if you
 used the same grammar with the JavaScript version. (e.g., "None" in strings
 where in JavaScript you might see "undefined")
 
+
+`pandas` Usage
+--------------
+Tracery can be used with `pandas` dataframes to generate distinct texts from separate dataframe rows.
+
+::
+
+    import tracery
+    from tracery.modifiers import base_english
+         
+    import pandas as pd
+    
+    #Create example dataframe
+    df=pd.DataFrame({'name':['Jo','Sam'], 'pos': ['first','second']})
+    
+    #Create example rule to apply to each row of dataframe
+    rules = {'origin': "#name# was placed #position#!",
+             'position': "#pos.uppercase#"}
+
+The following function creates a full rules mapping from the base rules set, annotated with the values from  each column in a dataframe row.
+
+::
+
+    def pandas_row_mapper(row, rules, root,  modifiers=base_english):
+        ''' Function to parse single row of dataframe '''
+        row=row.to_dict()
+        rules=rules.copy()
+    
+        for k in row:
+            rules[k] = str(row[k])
+            grammar = tracery.Grammar(rules)
+            if modifiers is not None:
+                grammar.add_modifiers(modifiers)
+        
+        return grammar.flatten(root)
+
+We can now create a new row on the dataframe containing the Tracery story of each row:
+
+::
+
+    df['report'] = df.apply(lambda row: pandas_row_mapper(row, rules, "#origin#"), axis=1)
+    df
+
+
+
 Command line
 ------------
 
